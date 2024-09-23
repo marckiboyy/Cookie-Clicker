@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="da">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Christmas Cookie Clicker</title>
+        <style>
+            /* CSS for roterende cookie */
+            @keyframes spin {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+    
+            #cookie {
+                animation: spin 5s linear infinite;
+                cursor: pointer;
+                pointer-events: all;
+                width: 150px; /* Juster størrelsen af cookien */
+            }
+    
+            /* Styrer julekagernes animation */
+            .christmas-cookie {
+                position: absolute;
+                width: 50px;
+                pointer-events: none; /* Sørger for, at de ikke kan klikkes */
+                animation: flyOut 2s ease-out forwards;
+            }
+    
+            /* Definerer animationen af julekagerne */
+            @keyframes flyOut {
+                from {
+                    opacity: 1;
+                    transform: translate(0, 0) scale(1);
+                }
+                to {
+                    opacity: 0;
+                    transform: translate(200px, -200px) scale(0.5);
+                }
+            }
+        </style>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Christmas Cookie Clicker</h1>
+            <img id="cookie" src="cookie.png" alt="Cookie" />
+            <p id="cookieCounter">Cookies: 0</p>
+
+            <script>
+                //const cookie = document.getElementById('cookie');
+                //const cookieCounter = document.getElementById('cookieCounter');
+                //let cookieCount = 0;
+
+                // Tilføj cookies ved klik
+                cookie.addEventListener('click', () => {
+                    cookieCount += 1;
+                    cookieCounter.textContent = `Cookies: ${cookieCount}`;
+                    createChristmasCookie(); // Opret julekage-effekt ved klik
+                });
+
+                // Funktion til at oprette julekager, der flyver ud fra cookien
+                function createChristmasCookie() {
+                    const christmasCookie = document.createElement('img');
+                    christmasCookie.src = 'cookie.png'; // Sti til julekagebilledet
+                    christmasCookie.classList.add('christmas-cookie');
+                    document.body.appendChild(christmasCookie);
+
+                    // Startpositionen skal være der, hvor cookien er placeret
+                    const cookieRect = cookie.getBoundingClientRect();
+                    christmasCookie.style.left = `${cookieRect.left + cookieRect.width / 2}px`;
+                    christmasCookie.style.top = `${cookieRect.top + cookieRect.height / 2}px`;
+
+                    // Tilfældig retning og animation af julekagerne
+                    const randomX = Math.random() * 300 - 150; // Tilfældig bevægelse på X-aksen
+                    const randomY = Math.random() * 300 - 150; // Tilfældig bevægelse på Y-aksen
+                    const randomScale = Math.random() * 0.5 + 0.5; // Tilfældig skalering mellem 0.5 og 1.0
+
+                    christmasCookie.style.animation = `flyOut 2s ease-out forwards`;
+                    christmasCookie.style.transform = `translate(${randomX}px, ${randomY}px) scale(${randomScale})`;
+
+                    // Fjern julekagen efter animationen er afsluttet (2 sekunder)
+                    setTimeout(() => {
+                        christmasCookie.remove();
+                    }, 2000);
+                }
+            </script>
+
+            <!-- Opgraderingssektion-->
+             <div class="upgrades">
+                    <button id="upgrade1" class="upgrade-btn">Køb Opgradering 1 (100 cookies) +1 per klik</button>
+                    <button id="upgrade2" class="upgrade-btn">Køb Opgradering 2 (500 cookies) +3 per klik</button>
+                    <button id="upgrade3" class="upgrade-btn">Køb Opgradering 3 (5000 cookies) +10 per klik</button>
+                    <button id="Sigma" class="upgrade-btn">Køb Sigma (1000000 cookies) +10000 per klik</button>
+                    <button id="Delta" class="upgrade-btn">Køb Delta (1000000 cookies) +10000 per klik</button>
+                    <button id="Phillip" class="upgrade-btn">Køb Phillip (1.000.000.000) +1.000.000.000 per klik</button>
+                    <button id="Christoffer" class="upgrade-btn">Køb Christoffer (69) +69 per klik</button>
+             </div>
+
+
+             <!-- Prestige sektion-->
+        <div class="prestige">
+            <button id="prestigeButton" class="prestige-btn">Prestige (100.000 cookies)</button>
+            <p id="prestigeMultiplier">Multiplikator: x1.00</p>
+        </div>
+        <div>
+            <!--Reset sektion-->
+            <button id="resetButton">Reset Spillet</button>
+        </div>
+    </div>
+
+        <!-- Script til at håndtere klik og opgraderinger-->
+        <script src="script.js"></script>
+    </body>
+</html>
